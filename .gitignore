@@ -1,0 +1,3 @@
+*.pyc
+pompouspanda/__pycache__/
+pompouspanda/__pycache__/*
