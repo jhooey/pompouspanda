@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import socket
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -20,12 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '&szduy+$$q5v3(&vxhp(i#_q9jnjt-k!=i=ylx8%sm7cik%uf1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['pompouspanda.com', 'http://www.pompouspanda.com', 'www.jacobhooey.com/pompouspanda']
 
 # Application definition
 
@@ -60,7 +61,7 @@ WSGI_APPLICATION = 'pompouspanda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'prod.sqlite3'),
     }
 }
 
@@ -80,8 +81,30 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_URL = '/STATIC/'
+
+STATIC_ROOT = '/home6/jacobhoo/www/pompouspanda/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-        '/home/jhooey/workspace/pompouspanda/pompouspanda/static/',
+    '/home6/jacobhoo/pompouspanda/pompouspanda/static/',
+)
+TEMPLATE_DIRS = (
+    '/home6/jacobhoo/pompouspanda/pompouspanda/templates/',
+)
+
+if socket.gethostname() == 'pyDev-13':
+    STATIC_ROOT = '/home6/jacobhoo/www/pompouspanda/static/'
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (
+        '/home6/jacobhoo/pompouspanda/pompouspanda/static/',
     )
-TEMPLATE_DIRS = ('/home/jhooey/workspace/pompouspanda/pompouspanda/templates',)
+    TEMPLATE_DIRS = (
+        '/home6/jacobhoo/pompouspanda/pompouspanda/templates/',
+    )
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'prod.sqlite3'),
+        }
+    }
+    DEBUG = True
+    TEMPLATE_DEBUG = True
