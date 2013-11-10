@@ -80,7 +80,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/STATIC/'
-
+STATICFILES_DIRS = (
+        '/home/jhooey/workspace/pompouspanda/pompouspanda/static/',
+    )
 TEMPLATE_DIRS = ('/home/jhooey/workspace/pompouspanda/pompouspanda/templates',)
