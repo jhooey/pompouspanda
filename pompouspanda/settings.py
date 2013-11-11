@@ -92,18 +92,18 @@ TEMPLATE_DIRS = (
 )
 
 if socket.gethostname() == 'pyDev-13':
-    STATIC_ROOT = '/home6/jacobhoo/www/pompouspanda/static/'
+    STATIC_ROOT = ''
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (
-        '/home6/jacobhoo/pompouspanda/pompouspanda/static/',
+        '/home/jhooey/workspace/pompouspanda/pompouspanda/static/',
     )
     TEMPLATE_DIRS = (
-        '/home6/jacobhoo/pompouspanda/pompouspanda/templates/',
+        '/home/jhooey/workspace/pompouspanda/pompouspanda/templates/',
     )
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'prod.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
     DEBUG = True

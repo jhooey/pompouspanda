@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from blog.models import Post
+from blog.models import Post, Category
 
 class PostAdmin(admin.ModelAdmin):
     # fields display on change list
@@ -15,5 +15,11 @@ class PostAdmin(admin.ModelAdmin):
     # prepopulate the slug from the title - big timesaver!
     prepopulated_fields = {"slug": ("title",)}
     
-
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    list_filter = ['name']
+    search_fields = ['name']
+    
+    
 admin.site.register(Post, PostAdmin)
+admin.site.register(Category, CategoryAdmin)

@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>{% block title %}{% endblock %}</title>
 	<meta charset="utf-8">
-
+	{% block meta %}
+	<meta name="author" content="Jacob Hooey">
+	<meta name="description" content="">
+	{% endblock %}
 	<!-- Always force latest IE rendering engine (even in intranet) & 
 		Chrome Frame Remove this if you use the .htaccess -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<title>{% block title %}{% endblock %}</title>
-	<meta name="description" content="">
-	<meta name="author" content="Jacob Hooey">
-
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
-
+	
 	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your 
 		domain and delete these references -->
 	<link rel="shortcut icon" href="/favicon.ico">
@@ -23,7 +22,6 @@
 <body>
 	<header class="page-header">
 		<h1>Blog</h1>
-		
 		<nav>
 			<p><a href="/">Home</a></p>
 			<p><a href="/contact">Contact</a></p>
@@ -33,10 +31,12 @@
 		{% block content %}
 		{% endblock %}
 	</div>
+	{% block siderbar %}
 	<aside class="sidebar">
 		<h2>Sidebar</h2>
 		<p>Donec eu libero sit amet quam egestas semper.</p>
 	</aside>
+	{% endblock %}
 	<footer class="page-footer">
 		<p>
 			&copy; Copyright  by Jacob Hooey
