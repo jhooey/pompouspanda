@@ -1,27 +1,44 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}Blog Archive {% endblock %}
+{% block page_head_title %} Welcome to my blog {% endblock %}
+
+{% block page_title %} Welcome to my blog {% endblock %}
 
 {% block content %}
-	<h1>My Blog Archive</h1>
 	<section class="posts">
-	{% for post in posts %}
-		<div class="post">
-			<h1>
-				<a href="{{post.get_absolute_url}}">
-					{{post.title}}
-				</a>
-			</h1>
-			<div class="post-footer">
-				Posted on 
-				<time datetime="{{post.created|date:"c"}}">
-					{{post.created|date}}
-				</time>
-			</div>
-			<p>
-				{{post.description}}
-			</p>
-		</div>
-	{% endfor %}
+	{% if posts %}
+    	{% for post in posts %}
+    		<div class="post">
+    			<h1>
+    				<a href="{{post.get_absolute_url}}">
+    					{{post.title}}
+    				</a>
+    			</h1>
+    			<div class="post-meta">
+    				Posted on 
+    				<time datetime="{{post.posted|date:"c"}}">
+    					{{post.posted|date}}
+    				</time>
+    			</div>
+    			<p>
+    				{{post.description}}
+    			</p>
+    		</div>
+    	{% endfor %}
+    {% else %}
+        <p>There are no posts.</p>
+    {% endif %}
 	</section>
+{% endblock %}
+{% block sidebar %}
+    <h1>Categories</h1>
+    {% if categories %}
+        <ul>
+        {% for category in categories %}
+            <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no categories.</p>
+    {% endif %}
 {% endblock %}

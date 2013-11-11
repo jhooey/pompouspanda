@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>{% block title %}{% endblock %}</title>
+	<title>{% block page_head_title %}PAGE TITLE{% endblock %}</title>
 	<meta charset="utf-8">
 	{% block meta %}
 	<meta name="author" content="Jacob Hooey">
@@ -20,23 +20,20 @@
 </head>
 
 <body>
-	<header class="page-header">
-		<h1>Blog</h1>
+	<header class="blog-header">
+		<h1>Welcome to my blog</h1>
 		<nav>
 			<p><a href="/">Home</a></p>
 			<p><a href="/contact">Contact</a></p>
 		</nav>
 	</header>
 	<div class="content">
-		{% block content %}
-		{% endblock %}
+	    <h1>{% block page_title %} PAGE TITLE {% endblock %}</h1>
+		{% block content %} PAGE CONTENT {% endblock %}
 	</div>
-	{% block siderbar %}
 	<aside class="sidebar">
-		<h2>Sidebar</h2>
-		<p>Donec eu libero sit amet quam egestas semper.</p>
+	{% block sidebar %} SIDEBAR CONTENT	{% endblock %}
 	</aside>
-	{% endblock %}
 	<footer class="page-footer">
 		<p>
 			&copy; Copyright  by Jacob Hooey

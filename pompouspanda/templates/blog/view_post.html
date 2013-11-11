@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block page_head_title %} {{ post.title }} {% endblock %}
+
+{% block page_title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+<article>
+	<div class="post-meta">
+		Posted on
+		<time datetime="{{post.posted|date:"c"}}">
+			{{post.posted|date}}
+		</time>
+	</div>
+	<div class="post-content">
+	{{post.content|safe}}
+	</div>
+</article>
+{% endblock %}

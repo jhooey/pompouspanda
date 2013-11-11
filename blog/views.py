@@ -1,15 +1,25 @@
-from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from django.shortcuts import render_to_response, get_object_or_404
+from blog.models import Post, Category
 
-# Create your views here.
+#The following is for your index page, which will display a list of all your 
+#categories, and 5 most recent posts.
 def index(request):
-    # get the blog posts that are published
-    posts = Post.objects.filter(published=True)
-    # now return the rendered template
-    return render(request, 'blog/index.html', {'posts': posts})
- 
-def post(request, slug):
-    # get the Post object
-    post = get_object_or_404(Post, slug=slug)
-    # now return the rendered template
-    return render(request, 'blog/post.html', {'post': post})
+    return render_to_response('blog/index.html', {
+        'categories': Category.objects.all(),
+        'posts': Post.objects.all()[:5]
+    })
+    
+"""In the other two functions view_post & view_category we use one of the 
+rather useful Django shortcuts. This queries the database trying to match where 
+slug=slug, the first slug being the field in the model, the second slug being 
+the input into the function call"""
+def view_post(request, slug):   
+    return render_to_response('blog/view_post.html', {
+        'post': get_object_or_404(Post, slug=slug)
+    })
+def view_category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    return render_to_response('blog/view_category.html', {
+        'category': category,
+        'posts': Post.objects.filter(category=category)[:5]
+    })

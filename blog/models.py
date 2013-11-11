@@ -1,34 +1,45 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.db.models import permalink
 
-# Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255, default='Jacob Hooey')
-    slug = models.SlugField(unique=True, max_length=255)
-    category = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    author = models.CharField(max_length=100, default='Jacob Hooey')
     content = models.TextField()
-    published = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-    #https://docs.djangoproject.com/en/dev/ref/models/instances/#get-absolute-url
-    def get_absolute_url(self):
-        return reverse( 'blog.views.post', args=[str(self.slug)])
+    posted = models.BooleanField(db_index=True, auto_now_add=True)
+    
+    #This field populates its data from another database table, in this case 
+    #Category, so you will need to populate the Category table field first.
+    category = models.ForeignKey('post.Category')
     
     def __unicode__(self):
         return u'%s' % self.title
+    
+    @permalink
+    def get_absolute_url(self):
+        return ( 'view_blog_post', None, {'slug': self.slug} )
+    
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=100, db_index=True)
 
+    def __unicode__(self):
+        return u'%s' % self.title
+    
+    @permalink
+    def get_absolute_url(self):
+        return ( 'view_blog_category', None, {'slug': self.slug} )
 
-"""Finally, you may notice the inner Meta class on the model. 
-This is where you're telling the model class how it should be ordered. 
-In this case, you're having the Post objects ordered by the created date. 
-The - tells Django to return the objects in a descending order.
-(https://docs.djangoproject.com/en/dev/topics/db/models/#meta-options)
+"""The __unicode__ function sets the text reference for each record. 
+This is used mainly in the automated django admin, but this is still available 
+to use on your own site.
+
+The get_absolute_url function defines a URL, again used in the admin area, for 
+each record.
+
+Without the @permalink decorator the following would not work. 
+This returns a URL calculated from the urls.py file which will be explained 
+shortly. I would recommend using this method as it allows you to change the URL 
+for a page in only one location.
 """
-class Meta:
-    ordering = ['-created']
-

@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block page_head_title %} {{ post.title }} {% endblock %}
+
+{% block page_title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+{% if posts %}
+    {% for post in posts %}
+        <div class="post">
+            <h1>
+                <a href="{{post.get_absolute_url}}">
+                    {{post.title}}
+                </a>
+            </h1>
+            <div class="post-meta">
+                Posted on 
+                <time datetime="{{post.posted|date:"c"}}">
+                    {{post.posted|date}}
+                </time>
+            </div>
+            <p>
+                {{post.description}}
+            </p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>There are no posts.</p>
+{% endif %}
+{% endblock %}
