@@ -1,3 +1,5 @@
 *.pyc
 pompouspanda/__pycache__/
 pompouspanda/__pycache__/*
+db.sqlite3
+prod.sqlite3

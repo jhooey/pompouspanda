@@ -6,11 +6,11 @@ class Post(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     author = models.CharField(max_length=100, default='Jacob Hooey')
     content = models.TextField()
-    posted = models.BooleanField(db_index=True, auto_now_add=True)
+    posted = models.DateField(db_index=True, auto_now_add=True)
     
     #This field populates its data from another database table, in this case 
     #Category, so you will need to populate the Category table field first.
-    category = models.ForeignKey('post.Category')
+    category = models.ForeignKey('blog.Category')
     
     def __unicode__(self):
         return u'%s' % self.title
